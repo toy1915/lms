@@ -1,6 +1,7 @@
-import { useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 
-const useInput = (initalValue: data) => {
+// TODO any 말고 들어갈 타입이 도대체 뭘까
+export const useInput = (initalValue: any) => {
   const [data, setData] = useState(initalValue);
 
   const onHandler = useCallback(
@@ -14,8 +15,4 @@ const useInput = (initalValue: data) => {
     [data],
   );
   return [data, onHandler];
-};
-
-type data = {
-  [key: string]: string;
 };
