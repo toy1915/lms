@@ -12,6 +12,19 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 300;
     white-space: pre;
   }
+  
+  & .flex-end{
+    display: flex;
+    justify-content: end;
+  }
+  
+  & .mb-1{
+    margin-bottom: 0.5rem;
+  }
+
+  & .mb-2{
+    margin-bottom: 1rem;
+  }
 `;
 
 export default GlobalStyle;
