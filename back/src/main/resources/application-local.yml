@@ -3,6 +3,17 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gwslope
-    username: byoungyoon
-    password: jbt10223
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/lms
+    username: postgres # byoungyoon
+    password: jsb971 # jbt10223
+
+
+logging:
+  pattern:
+    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+  level:
+    org:
+      springframework: DEBUG
+
+

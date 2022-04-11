@@ -21,3 +21,12 @@ spring:
 spring:
   profiles:
     active: prod
+
+---
+
+spring:
+  jwt:
+    secret: webfirewoodjwtsigntutorialasdfasdfasdfasdfasdfjwtsigntutorialasdfasdfasdfasdfasdfwebfirewoodjwtsigntut
+
+
+---

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="toy.lms.jwt.mapper.UserLoginMapper">
+
+  <select id="selectUserById" parameterType="String" resultType="toy.lms.jwt.dto.CustomUserDetails">
+    SELECT * FROM public.account WHERE account_id=#{accountId}
+  </select>
+
+  <insert id="insertUserInfo" parameterType="toy.lms.member.dto.MemberDTO">
+    INSERT INTO public.account(
+      account_id,
+      password,
+      state,
+      role_id,
+      keyword,
+      register_date,
+      update_date
+    ) VALUES (
+     #{accountId},
+     #{password},
+     #{state},
+     #{roleId},
+     #{keyword},
+     NOW(),
+     NOW()
+    )
+  </insert>
+
+  <select id="selectCntDuplicateId" parameterType="String" resultType="int">
+    SELECT count(*) FROM public.account WHERE account_id=#{accountId}
+  </select>
+
+  <update id="updateUserInfo" parameterType="toy.lms.member.dto.MemberDTO">
+    UPDATE
+        account
+    SET
+      <if test="state != null  and !state.equals('')">
+        state = 'OS'
+      </if>
+    WHERE
+        account_id = 'admin1';
+  </update>
+
+</mapper>
