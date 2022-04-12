@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import toy.lms.common.constants.ResultMap;
 import toy.lms.jwt.dto.JwtRequestDTO;
+import toy.lms.jwt.dto.UserInfoDTO;
 import toy.lms.jwt.service.UserLoginService;
 import toy.lms.member.dto.MemberDTO;
 
@@ -45,8 +46,8 @@ public class AuthenticationController {
 
   @ApiOperation(value = "신규 회원 가입", notes = "사용자 정보 입력 필요.")
   @PostMapping("/signup")
-  public ResultMap newMember(@RequestBody MemberDTO memberDTO) {
-    return userLoginService.registerUser(memberDTO);
+  public ResultMap newMember(@RequestBody UserInfoDTO userInfoDTO) {
+    return userLoginService.registerUser(userInfoDTO);
   }
 
 

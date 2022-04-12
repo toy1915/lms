@@ -3,13 +3,17 @@ POST http://localhost:10100/unknown/signup
 Content-Type: application/json
 
 {
-  "accountId": "admin2",
+  "accountId": "admin3",
   "password": "abc1234!",
-  "state": "GS",
-  "roleId": "T003",
-  "keyword": "Hello, My Name is Jeon",
-  "registerDate": "2022-01-11T10:24:41",
-  "updateDate": "2022-03-30T12:40:20"
+  "roleId": "b775036a-fc78-4906-b260-95e6e2c34267",
+  "keyword": "He",
+  "nameK": "hoon",
+  "nameE": "Ho",
+  "sex": "M",
+  "email": "hon",
+  "education": "001",
+  "telNum": "010-4123-0214",
+  "birth": "2000-01-21"
 }
 
 ###

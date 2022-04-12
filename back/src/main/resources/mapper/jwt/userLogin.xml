@@ -3,36 +3,51 @@
 <mapper namespace="toy.lms.jwt.mapper.UserLoginMapper">
 
   <select id="selectUserById" parameterType="String" resultType="toy.lms.jwt.dto.CustomUserDetails">
-    SELECT * FROM public.account WHERE account_id=#{accountId}
+    SELECT * FROM lms.account WHERE account_id=#{accountId}
   </select>
-
-  <insert id="insertUserInfo" parameterType="toy.lms.member.dto.MemberDTO">
-    INSERT INTO public.account(
-      account_id,
-      password,
-      state,
-      role_id,
-      keyword,
-      register_date,
-      update_date
+  <!-- prod -->
+  <insert id="insertUserInfo" parameterType="toy.lms.jwt.dto.UserInfoDTO">
+    INSERT INTO lms.account(
+        account_id,
+        password,
+        role_id,
+        keyword
     ) VALUES (
-     #{accountId},
-     #{password},
-     #{state},
-     #{roleId},
-     #{keyword},
-     NOW(),
-     NOW()
-    )
+        #{accountId},
+        #{password},
+        #{roleId}::uuid,
+        #{keyword}
+    );
+    INSERT INTO lms.profile(
+        account_id,
+        name_k,
+        name_e,
+        sex,
+        email,
+        education,
+        tel_num,
+        birth,
+        image
+    ) VALUES (
+        #{accountId},
+        #{nameK},
+        #{nameE},
+        #{sex},
+        #{email},
+        #{education},
+        #{telNum},
+        #{birth},
+        #{image}
+    );
   </insert>
 
   <select id="selectCntDuplicateId" parameterType="String" resultType="int">
-    SELECT count(*) FROM public.account WHERE account_id=#{accountId}
+    SELECT count(*) FROM lms.account WHERE account_id=#{accountId}
   </select>
 
   <update id="updateUserInfo" parameterType="toy.lms.member.dto.MemberDTO">
     UPDATE
-        account
+    lms.account
     SET
       <if test="state != null  and !state.equals('')">
         state = 'OS'

@@ -2,6 +2,7 @@ package toy.lms.jwt.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.security.core.userdetails.UserDetails;
+import toy.lms.jwt.dto.UserInfoDTO;
 import toy.lms.member.dto.MemberDTO;
 
 
@@ -10,7 +11,7 @@ public interface UserLoginMapper {
 
   UserDetails selectUserById(String accountId);
 
-  int insertUserInfo(MemberDTO memberDTO);
+  int insertUserInfo(UserInfoDTO userInfoDTO);
 
   int selectCntDuplicateId(String accountId);
 

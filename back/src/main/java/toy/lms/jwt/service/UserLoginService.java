@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toy.lms.common.constants.ResultMap;
 import toy.lms.jwt.JwtTokenUtil;
+import toy.lms.jwt.dto.UserInfoDTO;
 import toy.lms.jwt.mapper.UserLoginMapper;
 import toy.lms.member.dto.MemberDTO;
 
@@ -85,20 +86,19 @@ public class UserLoginService {
 
 
   @Transactional
-  public ResultMap registerUser(MemberDTO memberDTO) {
+  public ResultMap registerUser(UserInfoDTO userInfoDTO) {
     ResultMap resultMap = new ResultMap();
 
     try {
-      if (userLoginMapper.selectCntDuplicateId(memberDTO.getAccountId()) > 0) {
+      if (userLoginMapper.selectCntDuplicateId(userInfoDTO.getAccountId()) > 0) {
         resultMap.setFailure();
         resultMap.setMessage("이미 존재하는 ID 입니다.");
         return resultMap;
       }
 
-      LOGGER.info(memberDTO.getPassword());
-      memberDTO.setPassword(bCryptPasswordEncoder.encode(memberDTO.getPassword()));
-      LOGGER.info(memberDTO.getPassword());
-      userLoginMapper.insertUserInfo(memberDTO);
+      LOGGER.info(userInfoDTO.toString());
+      userInfoDTO.setPassword(bCryptPasswordEncoder.encode(userInfoDTO.getPassword()));
+      userLoginMapper.insertUserInfo(userInfoDTO);
       resultMap.setSuccess();
       resultMap.setMessage("가입이 완료되었습니다.");
 

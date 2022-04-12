@@ -1,16 +1,18 @@
-package toy.lms.member.dto;
+package toy.lms.jwt.dto;
+
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDTO {
+public class UserInfoDTO {
 
   @ApiModelProperty(value = "사용자 ID", example = "admin", required = true)
   @NonNull
@@ -28,7 +30,7 @@ public class MemberDTO {
   @NonNull
   private String roleId;
 
-  @ApiModelProperty(value = "분류?", example = "", required = false)
+  @ApiModelProperty(value = "분류?", example = "")
   private String keyword;
 
   @NonNull
@@ -40,4 +42,33 @@ public class MemberDTO {
   @DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
   private LocalDateTime updateDate;
 
+  @ApiModelProperty(value = "사용자 명", example = "홍길동", required = true)
+  @NonNull
+  private String nameK;
+
+  @ApiModelProperty(value = "", example = "")
+  private String nameE;
+
+  @ApiModelProperty(value = "", example = "")
+  @NonNull
+  private String sex;
+
+  @ApiModelProperty(value = "남성 (M), 여성 (F)", example = "M")
+  @NonNull
+  private String email;
+
+  @ApiModelProperty(value = "수업명", example = "컴퓨터 공학")
+  @NonNull
+  private String education;
+
+  @ApiModelProperty(value = "전화번호", example = "010-1231-4267")
+  @NonNull
+  private String telNum;
+
+  @ApiModelProperty(value = "생년월일", example = "1997-11-11")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  private LocalDate birth;
+
+  @ApiModelProperty(value = "이미지", example = "")
+  private String image;
 }
