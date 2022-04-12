@@ -1,2 +1,19 @@
 server:
   port: 10100
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://legendary.n-e.kr:5432/postgres
+    username: lms
+    password: lms00
+
+
+logging:
+  pattern:
+    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+  level:
+    org:
+      springframework: DEBUG
+
+
