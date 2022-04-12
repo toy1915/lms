@@ -1,0 +1,33 @@
+###
+POST http://localhost:10100/unknown/signup
+Content-Type: application/json
+
+{
+  "accountId": "admin2",
+  "password": "abc1234!",
+  "state": "GS",
+  "roleId": "T003",
+  "keyword": "Hello, My Name is Jeon",
+  "registerDate": "2022-01-11T10:24:41",
+  "updateDate": "2022-03-30T12:40:20"
+}
+
+###
+GET http://localhost:10100/unknown/bit?str=password
+
+###
+GET http://localhost:10100/member/test
+Content-Type: application/json
+Authorization: Bearer eyJyZWdEYXRlIjoxNjQ5NjY0MTQ3Njk5LCJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbjIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICIsImlhdCI6MTY0OTY2NDE0NywiZXhwIjoxNjQ5Njc0OTQ3fQ.7EPFX2NjlDCdZ83tRFiGrGZGH7ePnZ2BWXxuT4a_bl7N3z4yFbW724aTFpxcX1fadwdeCikVHX1JgI82TBXdKQ
+
+
+###
+POST http://localhost:10100/unknown/login
+Content-Type: application/json
+
+{
+  "username": "admin2",
+  "password": "abc1234!"
+}
+
+

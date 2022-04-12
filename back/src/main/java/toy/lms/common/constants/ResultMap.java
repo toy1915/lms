@@ -1,7 +1,7 @@
 package toy.lms.common.constants;
 
-import toy.lms.common.utils.StringUtils;
 
+import toy.lms.common.utils.StringUtils;
 import java.util.HashMap;
 import java.util.List;
 
