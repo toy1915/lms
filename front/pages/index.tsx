@@ -1,8 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Login from './login/Login';
+import Login from '../component/layout/login/Login';
 import styled from 'styled-components';
-import bg from '../public/image/background.jpg';
 
 const Home: NextPage = () => {
   return (
@@ -28,9 +27,4 @@ const Container = styled.div`
 
   width: 100%;
   height: 100vh;
-
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url('${bg.src}');
 `;

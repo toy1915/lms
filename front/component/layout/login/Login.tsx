@@ -1,13 +1,14 @@
 import styled from 'styled-components';
-import sub from '../../public/image/login_sub.jpg';
+import sub from '../../../public/image/login_sub.jpg';
 import { Button, Dialog, TextField } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { ErrorMessageConstants } from '../../constants/ErrorMessage.constants';
-import { CustomRegex } from '../../util/common/Regex.util';
-import { CustomDialog } from '../../component/common/Dialog';
+import { ErrorMessageConstants } from '../../../constants/ErrorMessage.constants';
+import { CustomRegex } from '../../../util/common/Regex.util';
+import { CustomDialog } from '../../common/Dialog';
 import { useDispatch } from 'react-redux';
-import { dialogOpen } from '../../util/store/Dialog.reducer';
+import { dialogOpen } from '../../../util/store/Dialog.reducer';
+import Signup from './Signup';
 
 const Login = () => {
   const validationSchema = yup.object({
@@ -86,8 +87,8 @@ const Login = () => {
           </form>
         </LoginFrame>
       </Flew>
-      <CustomDialog title="test" width="lg">
-        123
+      <CustomDialog title="회원가입" width="xs">
+        <Signup />
       </CustomDialog>
     </>
   );

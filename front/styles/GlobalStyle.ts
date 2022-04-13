@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import bg from '../public/image/background.jpg';
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -11,6 +12,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Inter', sans-serif;
     font-weight: 300;
     white-space: pre;
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('${bg.src}');
   }
   
   & .flex-end{
