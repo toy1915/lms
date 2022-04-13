@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 import GlobalStyle from '../styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
 import theme from '../styles/Theme';
-import { Head } from 'next/document';
+import { wrapper } from '../util/store';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,4 +15,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

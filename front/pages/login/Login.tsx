@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import sub from '../../public/image/login_sub.jpg';
-import { Button, TextField } from '@mui/material';
+import { Button, Dialog, TextField } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { ErrorMessageConstants } from '../../constants/ErrorMessage.constants';
 import { CustomRegex } from '../../util/common/Regex.util';
+import { CustomDialog } from '../../component/common/Dialog';
+import { useDispatch } from 'react-redux';
+import { dialogOpen } from '../../util/store/Dialog.reducer';
 
 const Login = () => {
   const validationSchema = yup.object({
@@ -33,47 +36,60 @@ const Login = () => {
     },
   });
 
+  const dispatch = useDispatch();
+
+  const handleClickSignup = () => {
+    dispatch(dialogOpen());
+  };
+
   return (
-    <Flew>
-      <SubFrame></SubFrame>
-      <LoginFrame>
-        <div id="title">LOGIN</div>
-        <form onSubmit={formik.handleSubmit}>
-          <div>
-            <TextField
-              fullWidth
-              id="id"
-              name="id"
-              label="아이디"
-              value={formik.values.id}
-              onChange={formik.handleChange}
-              error={formik.touched.id && Boolean(formik.errors.id)}
-              helperText={formik.touched.id && formik.errors.id}
-            />
-          </div>
-          <div>
-            <TextField
-              fullWidth
-              id="password"
-              name="password"
-              label="비밀번호"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-              margin="normal"
-            />
-          </div>
-          <ButtonFrame>
-            <div className="flex-end mb-1">회원가입</div>
-            <Button id="button" variant="contained" fullWidth type="submit">
-              로그인
-            </Button>
-          </ButtonFrame>
-        </form>
-      </LoginFrame>
-    </Flew>
+    <>
+      <Flew>
+        <SubFrame></SubFrame>
+        <LoginFrame>
+          <div id="title">LOGIN</div>
+          <form onSubmit={formik.handleSubmit}>
+            <div>
+              <TextField
+                fullWidth
+                id="id"
+                name="id"
+                label="아이디"
+                value={formik.values.id}
+                onChange={formik.handleChange}
+                error={formik.touched.id && Boolean(formik.errors.id)}
+                helperText={formik.touched.id && formik.errors.id}
+              />
+            </div>
+            <div>
+              <TextField
+                fullWidth
+                id="password"
+                name="password"
+                label="비밀번호"
+                type="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+                margin="normal"
+              />
+            </div>
+            <ButtonFrame>
+              <div className="flex-end mb-1">
+                <span onClick={handleClickSignup}>회원가입</span>
+              </div>
+              <Button id="button" variant="contained" fullWidth type="submit">
+                로그인
+              </Button>
+            </ButtonFrame>
+          </form>
+        </LoginFrame>
+      </Flew>
+      <CustomDialog title="test" width="lg">
+        123
+      </CustomDialog>
+    </>
   );
 };
 
