@@ -11,10 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import toy.lms.jwt.filter.JwtAuthenticationEntryPoint;
-import toy.lms.jwt.filter.JwtRequestFilter;
+import toy.lms.jwt.handler.JwtAuthenticationEntryPoint;
+import toy.lms.jwt.handler.JwtRequestFilter;
 import toy.lms.jwt.service.JwtUserDetailsService;
 
 

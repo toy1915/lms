@@ -4,19 +4,18 @@ package toy.lms.jwt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.userdetails.UserDetails;
-import toy.lms.jwt.dto.CustomUserDetails;
+import toy.lms.jwt.handler.TokenUtil;
 
 import java.time.LocalDateTime;
 
 @DisplayName("JwtTokenUtil Test")
-public class JwtTokenUtilTest {
+public class TokenUtilTest {
 
-  private JwtTokenUtil jwtTokenUtil;
+  private TokenUtil jwtTokenUtil;
 
   @BeforeEach
   void setUp() {
-    jwtTokenUtil = new JwtTokenUtil();
+//    jwtTokenUtil = new TokenUtil();
   }
 
   @Test

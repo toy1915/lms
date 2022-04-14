@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="toy.lms.jwt.mapper.UserLoginMapper">
+<mapper namespace="toy.lms.jwt.mapper.AuthMapper">
 
   <select id="selectUserById" parameterType="String" resultType="toy.lms.jwt.dto.CustomUserDetails">
-    SELECT * FROM lms.account WHERE account_id=#{accountId}
-  </select>
+    SELECT A.ACCOUNT_ID
+         , A.PASSWORD
+         , B.NAME_K
+         , C.ID ROLE_ID
+         , C.NAME ROLE_NAME
+    FROM LMS.ACCOUNT A, LMS.PROFILE B, LMS.ROLE C
+    WHERE A.ACCOUNT_ID = B.ACCOUNT_ID
+      AND A.ROLE_ID = C.ID
+      AND A.ACCOUNT_ID = #{value}
+</select>
   <!-- prod -->
   <insert id="insertUserInfo" parameterType="toy.lms.jwt.dto.UserInfoDTO">
     INSERT INTO lms.account(

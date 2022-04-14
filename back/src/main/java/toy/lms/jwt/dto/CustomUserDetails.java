@@ -1,60 +1,50 @@
 package toy.lms.jwt.dto;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 
-@Getter @Setter
-@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class CustomUserDetails implements UserDetails {
-
-  @NonNull
   private String accountId;
-
-  @NonNull
   private String password;
-
-  @NonNull
-  private String state;
-
-  @NonNull
+  private String nameK;
   private String roleId;
+  private String roleName;
 
-  @NonNull
-  private String keyword;
+//  @NonNull
+//  private String keyword;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private LocalDate registerDate;
+//  @DateTimeFormat(pattern = "yyyy-MM-dd")
+//  private LocalDate registerDate;
+//
+//  @DateTimeFormat(pattern = "yyyy-MM-dd")
+//  private LocalDate updateDate;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private LocalDate updateDate;
 
-
-  @Builder
-  public CustomUserDetails(@NonNull String accountId,
-                           @NonNull String password,
-                           @NonNull String state,
-                           @NonNull String roleId,
-                           @NonNull String keyword,
-                           LocalDate registerDate, LocalDate updateDate) {
-    this.accountId = accountId;
-    this.password = password;
-    this.state = state;
-    this.roleId = roleId;
-    this.keyword = keyword;
-    this.registerDate = registerDate == null ? LocalDate.now() : registerDate;
-    this.updateDate = updateDate == null ? LocalDate.now() : updateDate;
-  }
+//  @Builder
+//  public CustomUserDetails(@NonNull String accountId,
+//                           @NonNull String password,
+//                           @NonNull String state,
+//                           @NonNull String roleId,
+//                           @NonNull String keyword,
+//                           LocalDate registerDate, LocalDate updateDate) {
+//    this.accountId = accountId;
+//    this.password = password;
+//    this.state = state;
+//    this.roleId = roleId;
+//    this.keyword = keyword;
+//    this.registerDate = registerDate == null ? LocalDate.now() : registerDate;
+//    this.updateDate = updateDate == null ? LocalDate.now() : updateDate;
+//  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,14 +1,15 @@
-package toy.lms.jwt;
+package toy.lms.jwt.handler;
 
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import toy.lms.jwt.dto.TokenDto;
 
-import java.io.Serializable;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,35 +17,40 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwtTokenUtil implements Serializable {
-  private static final long serialVersionUID = 8240571880674472156L;
+public class TokenUtil{
+  private static final String AUTHORITIES_KEY = "auth";
+  private static final String USER_DATA_KEY = "info";
+  private static final long ACCESS_TOKEN_VALIDITY = 1000 * 60 * 60 * 3; // 3시간
 
-  private static final long JWT_TOKEN_VALIDITY = 1000L * 60L * 60L * 3L; // 3시간
-
-  @Value("${spring.jwt.secret}")
-  private String secretKey;
+  private final Key key;
+  public TokenUtil(@Value("${spring.jwt.secret}") String secretKey){
+    byte[] bytes = Decoders.BASE64.decode(secretKey);
+    this.key = Keys.hmacShaKeyFor(bytes);
+  }
 
   /**
    * Member 정보를 담은 JWT 토큰을 생성
    * JWT 발급자, 만료, 제목 및 ID와 같은 토큰의 클레임(payload의 한 조각)을 정의
-   * @param userDetails
-   * @return String JWT Token
+   * @param authentication
+   * @return TokenDto
    */
-  public String generateJwtToken(UserDetails userDetails) {
-    Map<String, Object> claims = new HashMap<>();
+  public TokenDto generateToken(Authentication authentication) {
+    long now = (new Date()).getTime();
 
-    return Jwts.builder()
-        .setClaims(claims)                        // 클레임, 토큰에 토함될 정보
-        .setHeader(createJwtHeader())             // JWT Header
-        .setSubject(userDetails.getUsername())
-        .setIssuedAt(
-            new Date(System.currentTimeMillis())
-        )
-        .setExpiration(
-            new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY)
-        )
-        .signWith(getSignKey(), SignatureAlgorithm.HS512)
-        .compact(); // 직렬화 (JWT 압축)
+    Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_VALIDITY);
+    String accessToken = Jwts.builder()
+                        .claim(AUTHORITIES_KEY, authentication)
+                        .claim(USER_DATA_KEY, authentication.getPrincipal())
+                        .setSubject(authentication.getName())
+                        .setExpiration(accessTokenExpiresIn)
+                        .signWith(key, SignatureAlgorithm.HS512)
+                        .compact(); // 직렬화 (JWT 압축)
+
+
+    return TokenDto.builder()
+            .accessToken(accessToken)
+            .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
+            .build();
   }
 
   /**
@@ -88,7 +94,7 @@ public class JwtTokenUtil implements Serializable {
    */
   private <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = Jwts.parserBuilder()
-        .setSigningKey(getSignKey())
+        .setSigningKey(key)
         .build()
         .parseClaimsJws(token)
         .getBody();
@@ -105,13 +111,14 @@ public class JwtTokenUtil implements Serializable {
     return expiration.before(new Date());
   }
 
-  /**
-   * JWT 토큰 암호화
-   * @return
-   */
-  private Key getSignKey(){
-    byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-    return Keys.hmacShaKeyFor(keyBytes);
-  }
+// ----------------- 생성자로 이동
+//  /**
+//   * JWT 토큰 암호화
+//   * @return
+//   */
+//  private Key getSignKey(){
+//    byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+//    return Keys.hmacShaKeyFor(keyBytes);
+//  }
 
 }

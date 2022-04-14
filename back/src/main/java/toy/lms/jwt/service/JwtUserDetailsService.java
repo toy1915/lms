@@ -1,28 +1,28 @@
 package toy.lms.jwt.service;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import toy.lms.jwt.mapper.UserLoginMapper;
+import toy.lms.jwt.dto.CustomUserDetails;
+import toy.lms.jwt.mapper.AuthMapper;
 
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
+//  private final Logger LOGGER = LoggerFactory.getLogger(this.getClass()); 이노테이션 Slf4j 사용으로 주석
 
-  private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
-  private final UserLoginMapper userLoginMapper;
+  private final AuthMapper authMapper;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    LOGGER.info("### LoadUserByUsername ###");
+    log.info("### LoadUserByUsername ###");
 
-    UserDetails user = userLoginMapper.selectUserById(username);
+    CustomUserDetails user = authMapper.selectUserById(username);
 
     if (user == null) {
       throw new UsernameNotFoundException("username " + username + " not found");

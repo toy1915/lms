@@ -1,4 +1,4 @@
-package toy.lms.jwt.filter;
+package toy.lms.jwt.handler;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import toy.lms.jwt.JwtTokenUtil;
 import toy.lms.jwt.service.JwtUserDetailsService;
 
 import javax.servlet.FilterChain;
@@ -28,7 +27,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   private static final Logger LOGGER = LoggerFactory.getLogger(JwtRequestFilter.class);
 
   @Autowired
-  private JwtTokenUtil jwtTokenUtil;
+  private TokenUtil jwtTokenUtil;
 
   @Autowired
   private JwtUserDetailsService jwtUserDetailsService;
