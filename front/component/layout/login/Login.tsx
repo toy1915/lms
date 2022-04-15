@@ -87,7 +87,7 @@ const Login = () => {
           </form>
         </LoginFrame>
       </Flew>
-      <CustomDialog title="회원가입" width="xs">
+      <CustomDialog title="회원가입" width="sm">
         <Signup />
       </CustomDialog>
     </>

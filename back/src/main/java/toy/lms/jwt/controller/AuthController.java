@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import toy.lms.common.constants.ResultMap;
 import toy.lms.jwt.dto.LoginRequestDto;
+import toy.lms.jwt.dto.TokenRequestDto;
 import toy.lms.jwt.service.AuthService;
 
 import javax.validation.Valid;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/unknown")
+@RequestMapping("/api/auth")
 public class AuthController {
   private final AuthService authService;
 
@@ -30,10 +31,26 @@ public class AuthController {
   public ResultMap login(
           @ApiParam(value = "로그인 객체") @Valid @RequestBody LoginRequestDto requestDto
   ) {
-    log.info("{}", requestDto);
     ResultMap result = new ResultMap();
     try{
-      authService.login(requestDto, result);
+      result.setData(authService.login(requestDto));
+      result.setSuccess();
+    } catch (Exception e){
+      e.printStackTrace();
+      result.setFailure();
+    }
+
+    return result;
+  }
+
+  @PostMapping("/reissue")
+  @Operation(summary = "accessToken 재요청", description = "accessToken 만료 시 refreshToken 으로 accessToken 재요청")
+  public ResultMap login(
+          @ApiParam(value = "토큰 객체") @Valid @RequestBody TokenRequestDto requestDto
+  ) {
+    ResultMap result = new ResultMap();
+    try{
+      result.setData(authService.reissue(requestDto));
       result.setSuccess();
     } catch (Exception e){
       e.printStackTrace();

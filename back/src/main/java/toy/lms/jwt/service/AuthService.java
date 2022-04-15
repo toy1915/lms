@@ -9,11 +9,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import toy.lms.common.constants.ResultMap;
+import toy.lms.common.exception.JwtException;
+import toy.lms.jwt.dto.TokenDto;
+import toy.lms.jwt.dto.TokenRequestDto;
 import toy.lms.jwt.handler.TokenUtil;
 import toy.lms.jwt.dto.LoginRequestDto;
 import toy.lms.jwt.dto.UserInfoDTO;
 import toy.lms.jwt.mapper.AuthMapper;
 import toy.lms.member.dto.MemberDTO;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +30,7 @@ public class AuthService {
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  public ResultMap login(LoginRequestDto loginRequestDto, ResultMap result) {
+  public TokenDto login(LoginRequestDto loginRequestDto) {
     // Login ID/PW를 기반으로 AuthenticationToken 생성
     UsernamePasswordAuthenticationToken authenticationToken = loginRequestDto.toAuthentication();
 
@@ -33,9 +39,18 @@ public class AuthService {
     Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
     // 인증 정보를 기반으로 JWT 토큰 생성
-    result.put("token", jwtTokenUtil.generateToken(authentication));
+    return jwtTokenUtil.generateToken(authentication);
+  }
 
-    return result;
+  public TokenDto reissue(TokenRequestDto tokenRequestDto){
+    Map<String, Object> result = new HashMap<>();
+
+    if(jwtTokenUtil.validateToken(tokenRequestDto.getRefreshToken()))
+      throw new JwtException("Refresh Token 이 유효하지 않습니다.");
+
+    Authentication authentication = jwtTokenUtil.getAuthentication(tokenRequestDto.getAccessToken());
+
+    return jwtTokenUtil.generateToken(authentication);
   }
 
 
