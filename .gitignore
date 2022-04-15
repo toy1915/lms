@@ -1,38 +1,33 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+### Java template
+*.class
 
-# dependencies
-/front/node_modules
-/front/.pnp
-/front/.pnp.js
+# Package Files #
+*.jar
+*.war
+*.ear
 
-# testing
-/coverage
+### macOS template
+*.DS_Store
+.AppleDouble
+.LSOverride
 
-# next.js
-front/.next/
-front/out/
-
-# production
-front/build
-
-# misc
-front/.DS_Store
-front/*.pem
-
-# debug
-front/npm-debug.log*
-front/yarn-debug.log*
-front/yarn-error.log*
-front/.pnpm-debug.log*
-
-# local env files
-front/.env*.local
-
-# vercel
-front/.vercel
-
-# typescript
-front/*.tsbuildinfo
-
+# IntelliJ project files
 .idea
-/back/.idea
+.idea/*.xml
+*.iml
+out
+gen
+build
+rebel.xml
+
+# Compliled files
+/target/
+**/target
+
+/example/
+
+
+#front
+/front/.next
+/front/node_modules
+/front/.env
