@@ -3,12 +3,13 @@ package toy.lms.jwt.dto;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Getter @Setter
+@NoArgsConstructor
 public class TokenRequestDto {
     @ApiParam(value = "access 토큰", required = true)
     @ApiModelProperty(example = "access 토큰")

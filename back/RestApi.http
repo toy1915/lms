@@ -1,19 +1,19 @@
 ###
-POST http://localhost:10100/unknown/signup
+POST http://localhost:10100/api/auth/signup
 Content-Type: application/json
 
 {
-  "accountId": "admin3",
+  "accountId": "admin2",
   "password": "abc1234!",
   "roleId": "b775036a-fc78-4906-b260-95e6e2c34267",
-  "keyword": "He",
-  "nameK": "hoon",
-  "nameE": "Ho",
+  "keyword": "Hello!",
+  "nameK": "Lee",
+  "nameE": "Lee",
   "sex": "M",
-  "email": "hon",
+  "email": "Lee@naver.com",
   "education": "001",
   "telNum": "010-4123-0214",
-  "birth": "2000-01-21"
+  "birth": "1997-01-21"
 }
 
 ###
@@ -26,12 +26,21 @@ Authorization: Bearer eyJyZWdEYXRlIjoxNjQ5NjY0MTQ3Njk5LCJ0eXAiOiJKV1QiLCJhbGciOi
 
 
 ###
-POST http://localhost:10100/unknown/login
+POST http://localhost:10100/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "admin2",
+  "accountId": "admin3",
   "password": "abc1234!"
+}
+
+
+###
+POST http://localhost:10100/api/auth/validate/id
+Content-Type: application/json
+
+{
+"accountId": "admin2"
 }
 
 

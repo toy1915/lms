@@ -20,32 +20,6 @@ public class CustomUserDetails implements UserDetails {
   private String roleId;
   private String roleName;
 
-//  @NonNull
-//  private String keyword;
-
-//  @DateTimeFormat(pattern = "yyyy-MM-dd")
-//  private LocalDate registerDate;
-//
-//  @DateTimeFormat(pattern = "yyyy-MM-dd")
-//  private LocalDate updateDate;
-
-
-//  @Builder
-//  public CustomUserDetails(@NonNull String accountId,
-//                           @NonNull String password,
-//                           @NonNull String state,
-//                           @NonNull String roleId,
-//                           @NonNull String keyword,
-//                           LocalDate registerDate, LocalDate updateDate) {
-//    this.accountId = accountId;
-//    this.password = password;
-//    this.state = state;
-//    this.roleId = roleId;
-//    this.keyword = keyword;
-//    this.registerDate = registerDate == null ? LocalDate.now() : registerDate;
-//    this.updateDate = updateDate == null ? LocalDate.now() : updateDate;
-//  }
-
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     Set<GrantedAuthority> roles = new HashSet<>();

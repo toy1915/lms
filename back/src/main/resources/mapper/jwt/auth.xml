@@ -12,30 +12,30 @@
     WHERE A.ACCOUNT_ID = B.ACCOUNT_ID
       AND A.ROLE_ID = C.ID
       AND A.ACCOUNT_ID = #{value}
-</select>
+  </select>
   <!-- prod -->
-  <insert id="insertUserInfo" parameterType="toy.lms.jwt.dto.UserInfoDTO">
-    INSERT INTO lms.account(
-        account_id,
-        password,
-        role_id,
-        keyword
+  <insert id="insertUserInfo" parameterType="toy.lms.jwt.dto.UserInfoDto">
+    INSERT INTO LMS.ACCOUNT(
+        ACCOUNT_ID,
+        PASSWORD,
+        ROLE_ID,
+        KEYWORD
     ) VALUES (
         #{accountId},
         #{password},
         #{roleId}::uuid,
         #{keyword}
     );
-    INSERT INTO lms.profile(
-        account_id,
-        name_k,
-        name_e,
-        sex,
-        email,
-        education,
-        tel_num,
-        birth,
-        image
+    INSERT INTO LMS.PROFILE(
+        ACCOUNT_ID,
+        NAME_K,
+        NAME_E,
+        SEX,
+        EMAIL,
+        EDUCATION,
+        TEL_NUM,
+        BIRTH,
+        IMAGE
     ) VALUES (
         #{accountId},
         #{nameK},
@@ -50,12 +50,17 @@
   </insert>
 
   <select id="selectCntDuplicateId" parameterType="String" resultType="int">
-    SELECT count(*) FROM lms.account WHERE account_id=#{accountId}
+    SELECT SUM(act.IdCount)
+    FROM (
+        SELECT COUNT(*) AS IdCount FROM LMS.ACCOUNT WHERE ACCOUNT_ID = #{accountId}
+        UNION ALL
+        SELECT COUNT(*) AS IdCount FROM LMS.PROFILE WHERE ACCOUNT_ID = #{accountId}
+    ) act
   </select>
 
   <update id="updateUserInfo" parameterType="toy.lms.member.dto.MemberDTO">
     UPDATE
-    lms.account
+    LMS.ACCOUNT
     SET
       <if test="state != null  and !state.equals('')">
         state = 'OS'

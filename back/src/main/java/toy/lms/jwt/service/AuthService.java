@@ -14,7 +14,7 @@ import toy.lms.jwt.dto.TokenDto;
 import toy.lms.jwt.dto.TokenRequestDto;
 import toy.lms.jwt.handler.TokenUtil;
 import toy.lms.jwt.dto.LoginRequestDto;
-import toy.lms.jwt.dto.UserInfoDTO;
+import toy.lms.jwt.dto.UserInfoDto;
 import toy.lms.jwt.mapper.AuthMapper;
 import toy.lms.member.dto.MemberDTO;
 
@@ -42,10 +42,11 @@ public class AuthService {
     return jwtTokenUtil.generateToken(authentication);
   }
 
+
   public TokenDto reissue(TokenRequestDto tokenRequestDto){
     Map<String, Object> result = new HashMap<>();
 
-    if(jwtTokenUtil.validateToken(tokenRequestDto.getRefreshToken()))
+    if (jwtTokenUtil.validateToken(tokenRequestDto.getRefreshToken()))
       throw new JwtException("Refresh Token 이 유효하지 않습니다.");
 
     Authentication authentication = jwtTokenUtil.getAuthentication(tokenRequestDto.getAccessToken());
@@ -54,46 +55,17 @@ public class AuthService {
   }
 
 
-  public ResultMap modifyUser(MemberDTO newInfo) {
-    ResultMap resultMap = new ResultMap();
-
-    try {
-      authMapper.updateUserInfo(newInfo);
-
-      resultMap.setSuccess();
-      resultMap.setMessage("회원정보 변경 성공.");
-    } catch(Exception e) {
-      resultMap.setFailure();
-      resultMap.setMessage("회원정보 변경 중 문제가 발생하였습니다.");
-    }
-
-    return resultMap;
+  public String validateDuplicateId(String accountId) {
+    if (authMapper.selectCntDuplicateId(accountId) == 0)
+      return "사용 가능한 ID 입니다.";
+    else
+      return "이미 존재하는 회원입니다.";
   }
 
 
-  @Transactional
-  public ResultMap registerUser(UserInfoDTO userInfoDTO) {
-    ResultMap resultMap = new ResultMap();
-
-    try {
-      if (authMapper.selectCntDuplicateId(userInfoDTO.getAccountId()) > 0) {
-        resultMap.setFailure();
-        resultMap.setMessage("이미 존재하는 ID 입니다.");
-        return resultMap;
-      }
-
-      log.info(userInfoDTO.toString());
-      userInfoDTO.setPassword(bCryptPasswordEncoder.encode(userInfoDTO.getPassword()));
-      authMapper.insertUserInfo(userInfoDTO);
-      resultMap.setSuccess();
-      resultMap.setMessage("가입이 완료되었습니다.");
-
-    } catch (Exception e) {
-      resultMap.setFailure();
-      resultMap.setMessage(e.getMessage());
-    }
-
-    return resultMap;
+  public void registerUser(UserInfoDto userInfo) {
+    userInfo.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
+    authMapper.insertUserInfo(userInfo);
   }
 
 

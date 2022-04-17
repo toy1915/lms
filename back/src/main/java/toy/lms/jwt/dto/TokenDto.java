@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class TokenDto implements Serializable {
+public class TokenDto {
   private String accessToken;
   private String refreshToken;
   private Long accessTokenExpiresIn;

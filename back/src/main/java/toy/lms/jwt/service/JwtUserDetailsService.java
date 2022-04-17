@@ -14,7 +14,6 @@ import toy.lms.jwt.mapper.AuthMapper;
 @Slf4j
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
-//  private final Logger LOGGER = LoggerFactory.getLogger(this.getClass()); 이노테이션 Slf4j 사용으로 주석
 
   private final AuthMapper authMapper;
 

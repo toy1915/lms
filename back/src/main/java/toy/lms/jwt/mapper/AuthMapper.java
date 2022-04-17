@@ -2,7 +2,7 @@ package toy.lms.jwt.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import toy.lms.jwt.dto.CustomUserDetails;
-import toy.lms.jwt.dto.UserInfoDTO;
+import toy.lms.jwt.dto.UserInfoDto;
 import toy.lms.member.dto.MemberDTO;
 
 
@@ -11,7 +11,7 @@ public interface AuthMapper {
 
   CustomUserDetails selectUserById(String accountId);
 
-  int insertUserInfo(UserInfoDTO userInfoDTO);
+  int insertUserInfo(UserInfoDto userInfoDTO);
 
   int selectCntDuplicateId(String accountId);
 

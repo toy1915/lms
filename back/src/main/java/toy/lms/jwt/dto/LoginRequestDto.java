@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginRequestDto {
+
   @ApiParam(value = "아이디", required = true)
   @ApiModelProperty(example = "아이디")
   @NotNull(message = "아이디를 입력해주세요.")
