@@ -7,7 +7,7 @@ mybatis:
 spring:
   datasource:
     hikari:
-      # driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       auto-commit: false        # AOP 로 트랜잭션을 제어하기에 false로 사용
       connection-timeout: 30000 # 커넥션 타임 아웃 (30s)
       idle-timeout: 600000      # pool 미사용 커넥션 유지 시간 (10m)
@@ -20,7 +20,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+#        dialect: org.hibernate.dialect.PostgreSQL10Dialect
         use_sql_comments: true
         format_sql: true
         show-sql: true

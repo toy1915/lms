@@ -3,7 +3,7 @@ POST http://localhost:10100/api/auth/signup
 Content-Type: application/json
 
 {
-  "accountId": "admin2",
+  "accountId": "admin4",
   "password": "abc1234!",
   "roleId": "b775036a-fc78-4906-b260-95e6e2c34267",
   "keyword": "Hello!",
@@ -43,4 +43,7 @@ Content-Type: application/json
 "accountId": "admin2"
 }
 
+###
+POST http://localhost:10100/member/list
+Content-Type: application/json
 

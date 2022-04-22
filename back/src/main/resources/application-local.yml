@@ -9,11 +9,11 @@ spring:
     password: jsb971 # jbt10223
 
 
-logging:
-  pattern:
-    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
-  level:
-    org:
-      springframework: DEBUG
+#logging:
+#  pattern:
+#    console: "[%d{HH:mm:ss.SSS}][%-5level][%logger.%method:line%line] - %msg%n"
+#  level:
+#    org:
+#      springframework: DEBUG
 
 
